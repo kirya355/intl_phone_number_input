@@ -38,12 +38,14 @@ class Item extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           SizedBox(width: leadingPadding),
-          _Flag(
-            country: country,
-            showFlag: showFlag,
-            useEmoji: useEmoji,
-          ),
-          SizedBox(width: 12.0),
+          if (country != null && showFlag == true) ...[
+            _Flag(
+              country: country,
+              showFlag: showFlag,
+              useEmoji: useEmoji,
+            ),
+            SizedBox(width: 12.0),
+          ],
           Text(
             '$dialCode',
             textDirection: TextDirection.ltr,
