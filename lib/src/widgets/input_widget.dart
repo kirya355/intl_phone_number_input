@@ -86,6 +86,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
 
   final List<String>? countries;
   final double? selectorButtonHeight;
+  final double? selectorButtonMinWidth;
   final EdgeInsets? selectorButtonPadding;
 
   InternationalPhoneNumberInput(
@@ -102,6 +103,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.keyboardAction,
       this.selectorButtonHeight,
       this.selectorButtonPadding,
+      this.selectorButtonMinWidth,
       this.keyboardType = TextInputType.phone,
       this.initialValue,
       this.hintText = 'Phone number',
@@ -372,27 +374,33 @@ class _InputWidgetView extends WidgetView<InternationalPhoneNumberInput, _InputW
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           if (!widget.selectorConfig.setSelectorButtonAsPrefixIcon) ...[
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SelectorButton(
-                  selectorButtonPadding: widget.selectorButtonPadding,
-                  selectorButtonHeight: widget.selectorButtonHeight,
-                  country: state.country,
-                  countries: state.countries,
-                  onCountryChanged: state.onCountryChanged,
-                  selectorConfig: widget.selectorConfig,
-                  selectorTextStyle: widget.selectorTextStyle,
-                  searchBoxDecoration: widget.searchBoxDecoration,
-                  locale: state.locale,
-                  isEnabled: widget.isEnabled,
-                  autoFocusSearchField: widget.autoFocusSearch,
-                  isScrollControlled: widget.countrySelectorScrollControlled,
-                ),
-                SizedBox(
-                  height: state.selectorButtonBottomPadding,
-                ),
-              ],
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: widget.selectorButtonHeight ?? double.infinity,
+                minWidth: widget.selectorButtonMinWidth ?? 0,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  SelectorButton(
+                    selectorButtonPadding: widget.selectorButtonPadding,
+                    selectorButtonHeight: widget.selectorButtonHeight,
+                    country: state.country,
+                    countries: state.countries,
+                    onCountryChanged: state.onCountryChanged,
+                    selectorConfig: widget.selectorConfig,
+                    selectorTextStyle: widget.selectorTextStyle,
+                    searchBoxDecoration: widget.searchBoxDecoration,
+                    locale: state.locale,
+                    isEnabled: widget.isEnabled,
+                    autoFocusSearchField: widget.autoFocusSearch,
+                    isScrollControlled: widget.countrySelectorScrollControlled,
+                  ),
+                  SizedBox(
+                    height: state.selectorButtonBottomPadding,
+                  ),
+                ],
+              ),
             ),
             SizedBox(width: widget.spaceBetweenSelectorAndTextField),
           ],
