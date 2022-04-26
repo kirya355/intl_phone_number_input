@@ -88,6 +88,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   final double? selectorButtonHeight;
   final double? selectorButtonMinWidth;
   final EdgeInsets? selectorButtonPadding;
+  final GestureTapCallback? onTap;
 
   InternationalPhoneNumberInput(
       {Key? key,
@@ -104,6 +105,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.selectorButtonHeight,
       this.selectorButtonPadding,
       this.selectorButtonMinWidth,
+      this.onTap,
       this.keyboardType = TextInputType.phone,
       this.initialValue,
       this.hintText = 'Phone number',
@@ -439,6 +441,7 @@ class _InputWidgetView extends WidgetView<InternationalPhoneNumberInput, _InputW
                     : FilteringTextInputFormatter.digitsOnly,
               ],
               onChanged: state.onChanged,
+              onTap: widget.onTap,
             ),
           )
         ],
