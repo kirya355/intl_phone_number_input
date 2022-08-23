@@ -88,6 +88,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   final double? selectorButtonHeight;
   final double? selectorButtonMinWidth;
   final EdgeInsets? selectorButtonPadding;
+  final EdgeInsets showCountrySelectorBottomSheetPadding;
   final GestureTapCallback? onTap;
 
   InternationalPhoneNumberInput(
@@ -102,6 +103,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.fieldKey,
       this.textFieldController,
       this.keyboardAction,
+      this.showCountrySelectorBottomSheetPadding = EdgeInsets.zero,
       this.selectorButtonHeight,
       this.selectorButtonPadding,
       this.selectorButtonMinWidth,
@@ -280,6 +282,7 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
     if (widget.selectorConfig.setSelectorButtonAsPrefixIcon) {
       return value.copyWith(
         prefixIcon: SelectorButton(
+          showCountrySelectorBottomSheetPadding: widget.showCountrySelectorBottomSheetPadding,
           selectorButtonPadding: widget.selectorButtonPadding,
           selectorButtonHeight: widget.selectorButtonHeight,
           country: country,
@@ -385,6 +388,7 @@ class _InputWidgetView extends WidgetView<InternationalPhoneNumberInput, _InputW
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   SelectorButton(
+                    showCountrySelectorBottomSheetPadding: widget.showCountrySelectorBottomSheetPadding,
                     selectorButtonPadding: widget.selectorButtonPadding,
                     selectorButtonHeight: widget.selectorButtonHeight,
                     country: state.country,

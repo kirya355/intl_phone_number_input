@@ -19,6 +19,7 @@ class SelectorButton extends StatelessWidget {
   final bool isScrollControlled;
   final double? selectorButtonHeight;
   final EdgeInsets? selectorButtonPadding;
+  final EdgeInsets showCountrySelectorBottomSheetPadding;
 
   final ValueChanged<Country?> onCountryChanged;
 
@@ -36,6 +37,7 @@ class SelectorButton extends StatelessWidget {
     required this.isScrollControlled,
     required this.selectorButtonHeight,
     required this.selectorButtonPadding,
+    required this.showCountrySelectorBottomSheetPadding,
   }) : super(key: key);
 
   @override
@@ -155,7 +157,7 @@ class SelectorButton extends StatelessWidget {
             onTap: () => Navigator.pop(context),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: showCountrySelectorBottomSheetPadding + EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
             child: DraggableScrollableSheet(
               builder: (BuildContext context, ScrollController controller) {
                 return Directionality(
