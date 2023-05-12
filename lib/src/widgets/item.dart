@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/src/models/country_model.dart';
 import 'package:intl_phone_number_input/src/utils/util.dart';
 
+import 'input_widget.dart';
+
 /// [Item]
 class Item extends StatelessWidget {
   final Country? country;
@@ -12,9 +14,11 @@ class Item extends StatelessWidget {
   final double? leadingPadding;
   final bool trailingSpace;
   final double? height;
+  final PhoneInputSelectorType phoneInputSelectorType;
 
   const Item({
     Key? key,
+    required this.phoneInputSelectorType,
     this.country,
     this.showFlag,
     this.useEmoji,
@@ -44,7 +48,17 @@ class Item extends StatelessWidget {
               showFlag: showFlag,
               useEmoji: useEmoji,
             ),
-            SizedBox(width: 12.0),
+            SizedBox(width: 6.0),
+            if (phoneInputSelectorType != PhoneInputSelectorType.DROPDOWN)
+              Image.asset(
+                'assets/dropdown.png',
+                width: 12.0,
+                package: 'country_code_phone_number_input',
+                errorBuilder: (context, error, stackTrace) {
+                  return SizedBox.shrink();
+                },
+              ),
+            SizedBox(width: 6.0),
           ],
           Text(
             '$dialCode',

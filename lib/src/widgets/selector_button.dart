@@ -40,14 +40,17 @@ class SelectorButton extends StatelessWidget {
     required this.showCountrySelectorBottomSheetPadding,
   }) : super(key: key);
 
+  PhoneInputSelectorType get phoneInputSelectorType => selectorConfig.selectorType;
+
   @override
   Widget build(BuildContext context) {
-    return selectorConfig.selectorType == PhoneInputSelectorType.DROPDOWN
+    return phoneInputSelectorType == PhoneInputSelectorType.DROPDOWN
         ? countries.isNotEmpty && countries.length > 1
             ? DropdownButtonHideUnderline(
                 child: DropdownButton<Country>(
                   key: Key(TestHelper.DropdownButtonKeyValue),
                   hint: Item(
+                    phoneInputSelectorType: phoneInputSelectorType,
                     country: country,
                     showFlag: selectorConfig.showFlags,
                     useEmoji: selectorConfig.useEmoji,
@@ -61,6 +64,7 @@ class SelectorButton extends StatelessWidget {
                 ),
               )
             : Item(
+                phoneInputSelectorType: phoneInputSelectorType,
                 country: country,
                 showFlag: selectorConfig.showFlags,
                 useEmoji: selectorConfig.useEmoji,
@@ -75,7 +79,7 @@ class SelectorButton extends StatelessWidget {
             onPressed: countries.isNotEmpty && countries.length > 1 && isEnabled
                 ? () async {
                     Country? selected;
-                    if (selectorConfig.selectorType == PhoneInputSelectorType.BOTTOM_SHEET) {
+                    if (phoneInputSelectorType == PhoneInputSelectorType.BOTTOM_SHEET) {
                       selected = await showCountrySelectorBottomSheet(context, countries);
                     } else {
                       selected = await showCountrySelectorDialog(context, countries);
@@ -89,6 +93,7 @@ class SelectorButton extends StatelessWidget {
             child: Padding(
               padding: selectorButtonPadding ?? EdgeInsets.zero,
               child: Item(
+                phoneInputSelectorType: phoneInputSelectorType,
                 height: selectorButtonHeight,
                 country: country,
                 showFlag: selectorConfig.showFlags,
@@ -107,6 +112,7 @@ class SelectorButton extends StatelessWidget {
       return DropdownMenuItem<Country>(
         value: country,
         child: Item(
+          phoneInputSelectorType: phoneInputSelectorType,
           key: Key(TestHelper.countryItemKeyValue(country.alpha2Code)),
           country: country,
           showFlag: selectorConfig.showFlagsInDialog,
