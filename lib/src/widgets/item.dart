@@ -15,10 +15,13 @@ class Item extends StatelessWidget {
   final bool trailingSpace;
   final double? height;
   final PhoneInputSelectorType phoneInputSelectorType;
+  final bool needSeparator;
+  final Color? separatorColor;
 
   const Item({
     Key? key,
     required this.phoneInputSelectorType,
+    required this.needSeparator,
     this.country,
     this.showFlag,
     this.useEmoji,
@@ -27,6 +30,7 @@ class Item extends StatelessWidget {
     this.leadingPadding = 12,
     this.trailingSpace = true,
     this.height,
+    this.separatorColor,
   }) : super(key: key);
 
   @override
@@ -65,6 +69,14 @@ class Item extends StatelessWidget {
             textDirection: TextDirection.ltr,
             style: textStyle,
           ),
+          if (needSeparator) ...[
+            SizedBox(width: 12.0),
+            Container(
+              width: 1,
+              height: 14,
+              color: separatorColor ?? Colors.black.withOpacity(0.2),
+            ),
+          ],
         ],
       ),
     );
@@ -89,7 +101,7 @@ class _Flag extends StatelessWidget {
                   )
                 : Image.asset(
                     country!.flagUri,
-                    width: 32.0,
+                    width: 24.0,
                     package: 'intl_phone_number_input',
                     errorBuilder: (context, error, stackTrace) {
                       return SizedBox.shrink();
